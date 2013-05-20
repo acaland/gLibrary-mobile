@@ -1,0 +1,10 @@
+<Alloy>
+	<Window title="Upload" class="container">
+		<TextField id="fileTxt"></TextField>
+		<Button title="Load from Gallery" onClick="loadFromGallery"></Button>
+		<Button title="Load from Camera" onClick="loadFromCamera"></Button>
+		<ImageView id="iv" image="/appicon.png"></ImageView>
+		<ProgressBar id="progress"></ProgressBar>
+		<Button id="uploadBtn" title=" Start Upload" onClick="startUpload"></Button>
+	</Window>
+</Alloy>

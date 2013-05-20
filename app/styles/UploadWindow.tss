@@ -1,0 +1,29 @@
+".container": {
+	backgroundColor: "white",
+	layout: "vertical"
+},
+"TextField": {
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+	width: "95%",
+	height: "50dp",
+	top: "10dp",
+	hintText: "file name"
+},
+"Button": {
+	top: "10dp"
+},
+"#progress": {
+	top: "10dp",
+	width: "95%",
+	height: "auto",
+	min: "0",
+	max: "1",
+	value: "0"
+	//color: "#fff",
+	//message: "Upload"
+},
+"ImageView": {
+	top: "10dp",
+	width: "100dp",
+	height: "100dp"
+}

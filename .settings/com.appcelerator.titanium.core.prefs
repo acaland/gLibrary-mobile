@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+provisioning_profiles/development/7A550D9F-190D-477F-8B7C-B4FDEA085006/appid=it.etnatraining.aiRPGPhysio
+provisioning_profiles/development/7A550D9F-190D-477F-8B7C-B4FDEA085006/name=aiRPGPhysio development
+provisioning_profiles/development/7A550D9F-190D-477F-8B7C-B4FDEA085006/uuid=7A550D9F-190D-477F-8B7C-B4FDEA085006
+provisioning_profiles/development/D10EB250-22A1-4E17-A63D-842304FB348C/appid=it.etnatraining.*
+provisioning_profiles/development/D10EB250-22A1-4E17-A63D-842304FB348C/name=catch all provisioning profile
+provisioning_profiles/development/D10EB250-22A1-4E17-A63D-842304FB348C/uuid=D10EB250-22A1-4E17-A63D-842304FB348C
+provisioning_profiles/development/D724901C-A1DA-4DE8-9B86-E92B4439CD86/appid=it.etnatraining.RAM
+provisioning_profiles/development/D724901C-A1DA-4DE8-9B86-E92B4439CD86/name=Raffineria di Milazzo
+provisioning_profiles/development/D724901C-A1DA-4DE8-9B86-E92B4439CD86/uuid=D724901C-A1DA-4DE8-9B86-E92B4439CD86

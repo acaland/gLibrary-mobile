@@ -1,0 +1,11 @@
+<Alloy>
+	<Collection src="File">
+	<Window title="Download" class="container">
+		<LeftNavButton>
+			<Button title="Logout" onClick="logout"/>
+		</LeftNavButton>
+		<TableView dataCollection="File" onClick="downloadFile">
+			<TableViewRow leftImage="{thumb}" title="{name}" hasChild="true"></TableViewRow>
+		</TableView>
+	</Window>
+</Alloy>
