@@ -2,7 +2,15 @@ var firstLoad = true;
 var loggedIn = false;
 
 $.wv.url = arguments[0].url
-var loginWindow = arguments[0].navGroup.parentWin;
+if (OS_IOS) {
+	var loginWindow = arguments[0].navGroup.parentWin;
+} else {
+	$.IdpLoginWindow.parentWin = arguments[0].parentWin;
+}
+
+function hideWv(e) {
+	$.wv.hide();
+}
 
 function authenticate(e) {
 
@@ -25,7 +33,15 @@ function authenticate(e) {
 					var shibCookie = cookies[i];
 					Ti.API.info("Shibboleth Session:" + shibCookie);
 					Ti.App.Properties.setString("shibCookie", shibCookie);
-					loginWindow.close();
+					if (OS_IOS) {
+						loginWindow.close();
+					} else {
+						$.IdpLoginWindow.parentWin.parentWin.close();
+						$.IdpLoginWindow.parentWin.close();
+						$.IdpLoginWindow.close();
+						
+					}
+					
 					//net.setCookie(shibCookie);
 					//loginSplitWindow.close();
 

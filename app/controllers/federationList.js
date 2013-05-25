@@ -17,7 +17,7 @@ net.retrieveIdpList(entityId, function(federations) {
 	federationData[0].idps = [];
 	for (var i=0; i < federations.length; i++) {
 		federationData[0].idps = federationData[0].idps.concat(federations[i].idps);
-		federationData[i+1] ={title: federations[i].name, idps: federations[i].idps, hasChild: true};
+		federationData[i+1] ={title: federations[i].name, idps: federations[i].idps, color: "black", hasChild: true};
 	}
 	federationData[0].idps.sort(function(a, b) {
  		var nameA=a.displayName.toLowerCase(), nameB=b.displayName.toLowerCase();
@@ -38,8 +38,17 @@ function openIdpList(e) {
 	var idpsData = [];
 	//detailNav.open(idpsListWindow);
 	for (var i=0; i<e.rowData.idps.length; i++) {
-			idpsData[i] = {title: e.rowData.idps[i].displayName, origin: e.rowData.idps[i].origin, hasChild: true}
+			idpsData[i] = {title: e.rowData.idps[i].displayName, origin: e.rowData.idps[i].origin, color: "black", hasChild: true}
 	}
-	var idpListWindow = Alloy.createController("IdpList", {data: idpsData, navGroup: $.federationList.navGroup}).getView();
-	$.federationList.navGroup.open(idpListWindow);
+	
+	if (OS_IOS) {
+		var idpListWindow = Alloy.createController("IdpList", {data: idpsData, navGroup: $.federationList.navGroup}).getView();
+		$.federationList.navGroup.open(idpListWindow);
+	} else {
+		var idpListWindow = Alloy.createController("IdpList", {data: idpsData, parentWin: $.federationList }).getView();
+		idpListWindow.fullscreen = false;
+		idpListWindow.open();
+		
+	}
+	
 }

@@ -1,13 +1,22 @@
 
 $.idpsTableView.data = arguments[0].data;
 var navGroup = arguments[0].navGroup;
+$.IdpList.parentWin = arguments[0].parentWin;
 
 function openIdpLoginWindow(e) {
 	
 	var login_url = "https://gridp.garr.it/ds/WAYF?entityID="+ Alloy.Globals.gateway + "shibboleth&action=selection&origin=";
 	//idpsListWindow.setTitle("Back");
-	var idpLoginWindow = Alloy.createController("IdpLoginWindow", {url: login_url + e.rowData.origin, navGroup: navGroup}).getView();
-	navGroup.open(idpLoginWindow);
+	
+	if (OS_IOS) {
+		var idpLoginWindow = Alloy.createController("IdpLoginWindow", {url: login_url + e.rowData.origin, navGroup: navGroup}).getView();
+		navGroup.open(idpLoginWindow);
+	} else {
+		var idpLoginWindow = Alloy.createController("IdpLoginWindow", {url: login_url + e.rowData.origin, parentWin: $.IdpList}).getView();
+		idpLoginWindow.fullscreen = false;
+		idpLoginWindow.open();
+	}
+	
 	idpLoginWindow.setTitle(e.rowData.title);
 	idpLoginWindow.backButtonTitle = 'Back'
 	//loginWindow.leftNavButton = Titanium.UI.createButton({title:'Back'});

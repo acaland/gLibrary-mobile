@@ -5,4 +5,7 @@
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
 	color: "#000"
+},
+"#downloads[platform=ios]": {
+	//icon: Ti.UI.iPhone.SystemIcon.DOWNLOADS
 } 

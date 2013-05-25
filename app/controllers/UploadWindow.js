@@ -74,7 +74,8 @@ function uploadFile(url) {
 		$.uploadBtn.enabled = true;
 	};
 	xhr.onsendstream = function(e) {
-		//Ti.API.info(JSON.stringify(e));
+		Ti.API.info(JSON.stringify(e));
+		alert(JSON.stringify(e));
 		$.progress.value = e.progress;
 	};
 	xhr.open("PUT", url);

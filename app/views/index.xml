@@ -1,6 +1,6 @@
 <Alloy>
 	<TabGroup>
-		<Tab title="Downloads" icon=Ti.UI.iPhone.SystemIcon.DOWNLOADS>
+		<Tab id="downloads" title="Downloads" icon="/download.png">
 			<Require src="DownloadWindow" id="downloadWin"></Require>
 		</Tab>
 		<Tab title="Upload" icon="/upload.png">
