@@ -1,8 +1,8 @@
 eclipse.preferences.version=1
 iosLaunchConfigurationAttributes/ATTR_MINIFY=true
-iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=gLibrary Upload
+iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=gLibrary-mobile
 iosLaunchConfigurationAttributes/appid=it.etnatraining.glibraryUpload
 iosLaunchConfigurationAttributes/certificate=Antonio Calanducci (X5JH2D4Y39)
 iosLaunchConfigurationAttributes/keychain=
-iosLaunchConfigurationAttributes/sdk_version=6.1
-iosLaunchConfigurationAttributes/uuid=D10EB250-22A1-4E17-A63D-842304FB348C
+iosLaunchConfigurationAttributes/sdk_version=6.0
+iosLaunchConfigurationAttributes/uuid=E18974EE-EC65-4585-8EA9-6146BC831A62

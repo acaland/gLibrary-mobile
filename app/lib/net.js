@@ -1,4 +1,10 @@
 
+
+exports.loggedIn = false;
+exports.shibCookie = Ti.App.Properties.getString("shibCookie", "");
+exports.username = "none";
+
+
 exports.retrieveIdpList = function(entityId, _callback) {
 
 	//entityID example "https://indicate-gw.consorzio-cometa.it/shibboleth"
@@ -30,4 +36,31 @@ exports.retrieveIdpList = function(entityId, _callback) {
 	xhr.open("GET", dsEndPoint);
 	xhr.send();
 
+};
+
+
+exports.apiCall = function(url, _callback) {
+	Ti.API.info(url);
+	var xhr = Ti.Network.createHTTPClient();
+	xhr.onload = function() {
+		//Ti.API.info(this.responseText);
+		if (this.responseText.indexOf("<title>Access System Failure</title>") != -1) {
+			//mainSplitWindow.close();
+			//loginSplitWindow.open();
+			_callback("session expired");
+		} else {
+			var response = JSON.parse(this.responseText);
+			//Ti.API.info(response);
+			_callback(response);
+		}
+	};
+	xhr.onerror = function(e) {
+		Ti.API.info(xhr.status);
+		alert(e);
+		
+	}
+	xhr.open('GET', url);
+	Ti.API.info("Cookie:'" + exports.cookie + "'");
+	xhr.setRequestHeader("Cookie", exports.cookie);
+	xhr.send();
 };

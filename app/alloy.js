@@ -10,4 +10,5 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
-Alloy.Globals.gateway = "https://earthserver-sg.consorzio-cometa.it/";
+//Alloy.Globals.gateway = "https://aginfra-sg.ct.infn.it/";
+Alloy.Globals.gateway = "https://indicate-gw.consorzio-cometa.it/";
