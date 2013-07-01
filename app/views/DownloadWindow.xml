@@ -2,10 +2,10 @@
 	<Collection src="Demo">
 	<Window title="Download" class="container">
 		<RightNavButton>
-			<Button title="Logout" onClick="logout"/>
+			<Button title="Logout" id="logout" onClick="logout"/>
 		</RightNavButton>
 		<LeftNavButton>
-			<Label id="username"></Label>
+			<Button id="username"></Button>
 		</LeftNavButton>
 		<TableView dataCollection="Demo" onClick="openDetail">
 			<TableViewRow hasChild="true">

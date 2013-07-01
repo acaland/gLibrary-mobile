@@ -10,5 +10,7 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
-//Alloy.Globals.gateway = "https://aginfra-sg.ct.infn.it/";
-Alloy.Globals.gateway = "https://indicate-gw.consorzio-cometa.it/";
+Alloy.Globals.gateway = "https://aginfra-sg.ct.infn.it/";
+Alloy.Globals.repository = 'aginfra';
+Alloy.Globals.type = 'Demo';
+//Alloy.Globals.gateway = "https://indicate-gw.consorzio-cometa.it/";

@@ -6,9 +6,12 @@ var downloadTableViewRow = Ti.UI.createTableViewRow({
 	hasChild : true
 });
 $.tv.appendRow(downloadTableViewRow);
+
 downloadTableViewRow.addEventListener('click', function() {
 
-	var url = "http://glibrary.ct.infn.it/dm/vo.indicate-project.eu/infn-se-03.ct.pi2s2.it/dpm/ct.pi2s2.it/home/vo.indicate-project.eu/glibrary/" + detail.attributes.FileName;
+	//var url = "http://glibrary.ct.infn.it/dm/vo.indicate-project.eu/infn-se-03.ct.pi2s2.it/dpm/ct.pi2s2.it/home/vo.indicate-project.eu/glibrary/" + detail.attributes.FileName;
+	var url = Alloy.Globals.gateway + "dm/vo.indicate-project.eu/infn-se-03.ct.pi2s2.it/dpm/ct.pi2s2.it/home/vo.indicate-project.eu/glibrary/" + detail.attributes.FileName;
+
 	Ti.API.info(url);
 	var viewer = Alloy.createController("WebViewer", {
 		url : url

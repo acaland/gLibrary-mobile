@@ -24,7 +24,8 @@ function startUpload() {
 	$.uploadBtn.enabled = false;
 	var filename = $.titleTxt.value.replace(/ /g, "_") + ".jpg";
 
-	var url = "http://glibrary.ct.infn.it/dm/put/vo.indicate-project.eu/" + filename + "/" + "infn-se-03.ct.pi2s2.it/dpm/ct.pi2s2.it/home/vo.indicate-project.eu/glibrary/";
+	//var url = "http://glibrary.ct.infn.it/dm/put/vo.indicate-project.eu/" + filename + "/" + "infn-se-03.ct.pi2s2.it/dpm/ct.pi2s2.it/home/vo.indicate-project.eu/glibrary/";
+	var url = Alloy.Globals.gateway + "dm/put/vo.indicate-project.eu/" + filename + "/" + "infn-se-03.ct.pi2s2.it/dpm/ct.pi2s2.it/home/vo.indicate-project.eu/glibrary/";
 	Ti.API.info(url);
 	var xhr = Ti.Network.createHTTPClient();
 	xhr.onload = function() {
@@ -81,7 +82,8 @@ function storeMetadata(filename, _callback) {
 
 	
 	
-	xhr.open("POST", "http://glibrary.ct.infn.it/django/addEntry/aginfra/Demo/");
+	//xhr.open("POST", "http://glibrary.ct.infn.it/django/addEntry/aginfra/Demo/");
+	xhr.open("POST", Alloy.Globals.gateway + "glibrary/addEntry/aginfra/Demo/");
 	
 	xhr.send(metadata);
 	
@@ -129,6 +131,7 @@ function uploadFile(url) {
 		//alert(JSON.stringify(e));
 		$.progress.value = e.progress;
 	};
+	Ti.API.info("Upload URL:" + url);
 	xhr.open("PUT", url);
 	xhr.send($.iv.image);
 }

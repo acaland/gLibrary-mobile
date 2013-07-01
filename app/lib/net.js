@@ -2,7 +2,8 @@
 
 exports.loggedIn = false;
 exports.shibCookie = Ti.App.Properties.getString("shibCookie", "");
-exports.username = "none";
+exports.lastLogin = Ti.App.Properties.getDouble("lastLogin", 0); 
+exports.username = Ti.App.Properties.getString("username", "none");;
 
 
 exports.retrieveIdpList = function(entityId, _callback) {
@@ -19,6 +20,8 @@ exports.retrieveIdpList = function(entityId, _callback) {
 	xhr.onload = function() {
 		//Ti.API.info(this.responseText);
 		try {
+			
+			//var response = JSON.parse(this.responseText.replace(/\n\t+/g, " "));	
 			var response = JSON.parse(this.responseText);	
 		} catch (err) {
 			Ti.API.info(err);
@@ -60,7 +63,7 @@ exports.apiCall = function(url, _callback) {
 		
 	}
 	xhr.open('GET', url);
-	Ti.API.info("Cookie:'" + exports.cookie + "'");
-	xhr.setRequestHeader("Cookie", exports.cookie);
+	Ti.API.info("Cookie:'" + exports.shibCookie + "'");
+	xhr.setRequestHeader("Cookie", exports.shibCookie);
 	xhr.send();
 };

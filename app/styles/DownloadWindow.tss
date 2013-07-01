@@ -1,7 +1,7 @@
 ".container": {
 	backgroundColor: "white"
 },
-"username": {
+"#username": {
 	width: "80",
 	text: "none",
 	borderWidth: 1,

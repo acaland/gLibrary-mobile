@@ -1,5 +1,5 @@
 <Alloy>
 	<Window class="container" >
-		<WebView id="wv" onBeforeLoad="hideWv" onLoad="authenticate"></WebView>
+		<WebView id="wv" onBeforeload="hideWv" ></WebView>
 	</Window>
 </Alloy>
