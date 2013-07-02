@@ -4,6 +4,7 @@ var typeName = arguments[0].name;
 var net = require('net');
 var repoName = Alloy.Globals.repository;
 
+//$.activityIndicator.show();
 net.apiCall(Alloy.Globals.gateway + "/glibrary/glib" + path, function(response) {
 	//Ti.API.info(response);
 	var data = [];
@@ -13,30 +14,41 @@ net.apiCall(Alloy.Globals.gateway + "/glibrary/glib" + path, function(response) 
 		var row = Ti.UI.createTableViewRow({
 			height : 100
 		});
-		if (repoName === "myTestRepo")
-			var title = response.records[i].name
-		else
-			var title = response.records[i].FileName;
+		//Ti.API.info(response.records[i]);
+		row.metadata = response.records[i];
+		var title = response.records[i].FileName;
 		row.add(Ti.UI.createLabel({
 			text : title,
-			left : 130,
+			left : 90,
 			font : {
-				fontSize : 20,
+				fontSize : 16,
 				fontWeight : "bold"
 			}
 		}));
 		row.hasChild = true;
 		row.add(Ti.UI.createImageView({
-			left : 5,
-			width : 100,
+			left : 10,
+			width : 60,
+			borderRadius: 5,
+			height: 80,
 			image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/Thumbs:Data"])
 		}));
 		row.id = response.records[i][path + ":FILE"];
 		//Ti.API.info(row.id);
 		data.push(row);
 	}
+	$.activityIndicator.hide();
 	//Ti.API.info(data);
 	//$.browserWindow.title = e.row.children[0].text;
 	$.entryBrowserWindow.title = typeName;
 	$.itemBrowserTableView.setData(data);
+	$.itemBrowserTableView.show();
 }); 
+
+
+
+function showMetadata(e) {
+	var entryDetailWindow = Alloy.createController("entryDetailWindow", {id: e.rowData.id, metadata: e.rowData.metadata}).getView();
+	$.entryBrowserWindow.navGroup.open(entryDetailWindow);
+	entryDetailWindow.navGroup = $.entryBrowserWindow.navGroup;
+}

@@ -119,9 +119,10 @@ function authenticate(e) {
 						net.username = Ti.App.Properties.setString("username", currentUser);
 						//userInfoLabel.text = "Logged as: "  + response.cn;
 						//Ti.App.Properties.setString("username", currentUser);
-						Ti.App.fireEvent("set:login", {
-							username : currentUser
-						});
+						Ti.App.fireEvent("loggedIn");
+						//Ti.App.fireEvent("set:login", {
+						//	username : currentUser
+						//});
 						Ti.API.info(currentUser);
 					});
 

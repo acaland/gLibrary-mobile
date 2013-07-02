@@ -1,0 +1,9 @@
+<Alloy>
+	<Window class="container">
+		<RightNavButton>
+			<Button id="downloadEntry" title="Download" onClick="downloadEntry"></Button>
+		</RightNavButton>
+		<ImageView id="thumb"></ImageView>
+		<TableView id="details"></TableView>>
+	</Window>
+</Alloy>

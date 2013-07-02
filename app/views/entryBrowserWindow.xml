@@ -1,7 +1,9 @@
 <Alloy>
-	<Window>
-		<TableView id="itemBrowserTableView" >		
+	<Window class="container">
+		
+		<TableView id="itemBrowserTableView" visible="false" onClick="showMetadata">		
 		</TableView>
+		<ActivityIndicator id="activityIndicator" message="Loading..." visible="true"/>
 		<Toolbar platform="ios" bottom="0" borderTop="true" borderBottom="false">
 
             <!-- The Items tag sets the Toolbar.items property. -->

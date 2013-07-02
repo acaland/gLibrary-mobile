@@ -23,14 +23,19 @@ if (net.shibCookie) {
 		loadLoginWindow();
 	} else {
 		net.loggedIn = true;
-		Ti.App.fireEvent("set:login", {
-			username : net.username
-		});
+		//Ti.App.fireEvent("set:login", {
+		$.username.text =  "Logged as: " + net.username;
+		//});
 		Ti.API.info("già loggato ");
 	}
 } else {
 	loadLoginWindow();
 }
+
+Ti.App.addEventListener('loggedIn', function() {
+	$.username.text = "Logged as: " + net.username;
+	loadTypeList();
+});
 
 function loadTypeList() {
 	Ti.API.info("focused");
@@ -89,6 +94,7 @@ function loadTypeList() {
 function loadEntries(e) {
 	Ti.API.info(e.rowData.path);
 	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.name}).getView();
+	entryBrowser.navGroup = $.mainNavGroup;
 	$.mainNavGroup.open(entryBrowser);
 }
 
