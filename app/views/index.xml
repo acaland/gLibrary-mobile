@@ -1,10 +1,23 @@
 <Alloy>
-	<TabGroup>
-		<Tab id="downloads" title="Downloads" icon="/download.png">
-			<Require src="DownloadWindow" id="downloadWin"></Require>
-		</Tab>
-		<Tab title="Upload" icon="/upload.png">
-			<Require src="UploadWindow"></Require>
-		</Tab>
-	</TabGroup>
+	<Window>
+		<NavigationGroup id="mainNavGroup" platform="ios">
+			<Window id="repo" onOpen="loadTypeList">
+				
+				<TableView id="typesTableView" onClick="loadEntries"></TableView>
+				<Toolbar platform="ios" bottom="0" borderTop="true" borderBottom="false">
+
+					<!-- The Items tag sets the Toolbar.items property. -->
+					<Items>
+						<Label text="Logged in as:" ></Label>
+						<FlexSpace/>
+						
+						<Button id="logout" title="Log Out" style="Ti.UI.iPhone.SystemButtonStyle.DONE"/>
+					</Items>
+
+					<!-- Place additional views for the Toolbar here. -->
+
+				</Toolbar>
+			</Window>
+		</NavigationGroup>
+	</Window>
 </Alloy>

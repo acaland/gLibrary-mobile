@@ -1,0 +1,19 @@
+<Alloy>
+	<Window>
+		<TableView id="itemBrowserTableView" >		
+		</TableView>
+		<Toolbar platform="ios" bottom="0" borderTop="true" borderBottom="false">
+
+            <!-- The Items tag sets the Toolbar.items property. -->
+            <Items>
+                <Button id="send" title="Apply Filters" style="Ti.UI.iPhone.SystemButtonStyle.DONE" />
+                <FlexSpace/>
+               
+                <Button id="cancel" systemButton="Ti.UI.iPhone.SystemButton.CANCEL" />
+            </Items>
+
+            <!-- Place additional views for the Toolbar here. -->
+
+        </Toolbar>
+	</Window>
+</Alloy>

@@ -5,9 +5,8 @@ Ti.API.info("shibCookie:" + net.shibCookie);
 Ti.API.info("username:" + net.username);
 
 $.index.open();
-$.downloadWin.getView().currentTab = $.index.activeTab;
+//$.downloadWin.getView().currentTab = $.index.activeTab;
 
- 
 function loadLoginWindow() {
 	if (OS_IOS) {
 		var loginWindow = Alloy.createController("LoginWindow").getView();
@@ -24,14 +23,74 @@ if (net.shibCookie) {
 		loadLoginWindow();
 	} else {
 		net.loggedIn = true;
-		Ti.App.fireEvent("set:login", {username: net.username});
+		Ti.App.fireEvent("set:login", {
+			username : net.username
+		});
 		Ti.API.info("già loggato ");
 	}
 } else {
 	loadLoginWindow();
 }
 
+function loadTypeList() {
+	Ti.API.info("focused");
+	if (net.loggedIn) {
+		var url = Alloy.Globals.gateway + 'glibrary/mountTree/' + Alloy.Globals.repository + "/?node=";
+		net.apiCall(url + "0" , function(response) {
+			//Ti.API.info(response);
+			var data = [];
+			for (var i = 0; i < response.length; i++) {
+				var type = {};
+				type.title = response[i].text;
+				type.isLeaf = response[i].leaf;
+				type.name = String(response[i].id);
+				type.leftImage = "Folder-Add.png";
+				type.height = 60;
+				if (!type.isLeaf) {
+					net.apiCall(url + response[i].id, function(response) {
+						//Ti.API.info(response);
+						for (var j = 0; j < response.length; j++) {
+							var row = Ti.UI.createTableViewRow();
+							row.add(Ti.UI.createLabel({
+								text : response[j].text,
+								left : 100,
+								font : {
+									fontSize : 18
+								}
+							}));
+							row.add(Ti.UI.createImageView({
+								image : "folder.png",
+								width : 50,
+								left : 50
+							}));
+							row.id = "" + response[j].id;
+							row.name = response[j].text;
+							row.path = response[j].path;
+							row.hasChild = true;
+							row.height = 60;
+							var previousRow = $.typesTableView.getIndexByName(type.name);
+							$.typesTableView.insertRowAfter(previousRow, row);
+						}
+					});
+				}
+				type.path = response[i].path;
+				type.hasChild = true;
+				//typesTableView.appendRow(type);
+				data.push(type);
+			}
+			$.typesTableView.setData(data);
+			$.repo.title = Alloy.Globals.repository;
+			//typesWindow.title = e.row.children[0].text;
+			//repoNav.open(typesWindow);
+		});
+	}
+}
 
+function loadEntries(e) {
+	Ti.API.info(e.rowData.path);
+	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.name}).getView();
+	$.mainNavGroup.open(entryBrowser);
+}
 
 exports.close = function() {
 	//Other cleanups here.
