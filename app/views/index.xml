@@ -11,7 +11,7 @@
 						<Label id="username" text="Logged in as:" ></Label>
 						<FlexSpace/>
 						
-						<Button id="logout" title="Log Out" style="Ti.UI.iPhone.SystemButtonStyle.DONE"/>
+						<Button id="logout" title="Log Out" style="Ti.UI.iPhone.SystemButtonStyle.DONE" onClick="logout"/>
 					</Items>
 
 					<!-- Place additional views for the Toolbar here. -->

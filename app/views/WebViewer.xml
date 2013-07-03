@@ -1,5 +1,6 @@
 <Alloy>
 	<Window class="container">
-		<WebView id="wv"></WebView>
+		<ProgressBar id="pbar" visible="true" message="Downloading..." width="90%"></ProgressBar>
+		<WebView id="wv" visible="false"></WebView>
 	</Window>
 </Alloy>

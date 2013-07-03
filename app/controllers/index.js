@@ -43,6 +43,7 @@ function loadTypeList() {
 		var url = Alloy.Globals.gateway + 'glibrary/mountTree/' + Alloy.Globals.repository + "/?node=";
 		net.apiCall(url + "0" , function(response) {
 			//Ti.API.info(response);
+			//alert(response);
 			var data = [];
 			for (var i = 0; i < response.length; i++) {
 				var type = {};
@@ -96,6 +97,22 @@ function loadEntries(e) {
 	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.name}).getView();
 	entryBrowser.navGroup = $.mainNavGroup;
 	$.mainNavGroup.open(entryBrowser);
+}
+
+function logout() {
+	
+	//net.loggedIn = false;
+	net.lastLogin = Ti.App.Properties.setDouble("lastLogin", 0);
+	net.username = Ti.App.Properties.setString("username", "none");    
+	var path = Titanium.Filesystem.applicationDataDirectory;
+	var searchKey = path.search('Documents');
+	path = path.substring(0, searchKey);
+	path = path + 'Library/Cookies/';
+	//alert(path);
+	var f = Ti.Filesystem.getFile(path + "Cookies.binarycookies");
+	f.deleteFile();
+	var loginWindow = Alloy.createController("LoginWindow").getView();
+	loginWindow.open();
 }
 
 exports.close = function() {
