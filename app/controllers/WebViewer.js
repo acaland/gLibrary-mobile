@@ -5,7 +5,7 @@ var net = require('net');
 
 
 
-
+$.pbar.show();
 var xhr = Ti.Network.createHTTPClient({timeout: 3000, autoRedirect: false});
 xhr.onload = function() {
 		Ti.API.info("redirect found");
@@ -18,9 +18,18 @@ xhr.onload = function() {
 		var	filename = urlTokens[urlTokens.length-2];
 
 		if (redirectUrl) {
-			$.pbar.show();
+			//$.pbar.show();
 			download(redirectUrl, filename);
+		} else {
+			$.pbar.hide();
+			$.wv.show();
+			$.wv.data = xhr.responseData;
 		}
+};
+
+xhr.ondatastream = function(e) {
+		Ti.API.info(e.progress);
+		$.pbar.value = e.progress;
 };
 
 xhr.onerror = function(e) {

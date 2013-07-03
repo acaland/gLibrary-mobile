@@ -11,6 +11,6 @@
 // Alloy.Globals.someGlobalFunction = function(){};
 
 Alloy.Globals.gateway = "https://aginfra-sg.ct.infn.it/";
-Alloy.Globals.repository = 'ESArep';
+Alloy.Globals.repository = 'deroberto2';
 Alloy.Globals.type = 'Demo';
 //Alloy.Globals.gateway = "https://indicate-gw.consorzio-cometa.it/";

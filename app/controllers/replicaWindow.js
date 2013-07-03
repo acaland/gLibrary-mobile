@@ -25,9 +25,12 @@ for (var i = 0; i < replicas.length; i++) {
 
 function downloadReplica(e) {
 	if (e.clicksource == 'rightButton') {
-		Ti.API.info(e.annotation.link);
-		var url = Alloy.Globals.gateway + e.annotation.link.split('=')[1].slice(1, -7);
-		Ti.API.info(url);
+		Ti.API.info("Annotation.link:" + e.annotation.link);
+		var url = e.annotation.link.split('=')[1].slice(0, -7);
+		if (url.indexOf("/glibrary") == 0) {
+			url = Alloy.Globals.gateway + url;
+		}
+		Ti.API.info("Splitted URL:" + url);
 		var fileType = url.substring(url.length - 3);
 		var webView = Alloy.createController("WebViewer", {url:url}).getView();
 		$.replicaWindow.navGroup.open(webView);
