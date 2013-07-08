@@ -32,9 +32,10 @@ if (net.shibCookie) {
 	loadLoginWindow();
 }
 
-Ti.App.addEventListener('loggedIn', function() {
-	$.username.text = "Logged as: " + net.username;
+Ti.App.addEventListener('loggedIn', function(e) {
+	
 	loadTypeList();
+	$.username.text = "Logged as: " + e.username;
 });
 
 function loadTypeList() {
@@ -72,6 +73,7 @@ function loadTypeList() {
 							row.id = "" + response[j].id;
 							row.name = response[j].text;
 							row.path = response[j].path;
+							row.visibleAttrs = response[j].visibleAttrs;
 							row.hasChild = true;
 							row.height = 60;
 							var previousRow = $.typesTableView.getIndexByName(type.name);
@@ -94,7 +96,7 @@ function loadTypeList() {
 
 function loadEntries(e) {
 	Ti.API.info(e.rowData.path);
-	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.name}).getView();
+	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.name, visibleAttrs: e.rowData.visibleAttrs}).getView();
 	entryBrowser.navGroup = $.mainNavGroup;
 	$.mainNavGroup.open(entryBrowser);
 }

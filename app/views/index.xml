@@ -8,7 +8,7 @@
 
 					<!-- The Items tag sets the Toolbar.items property. -->
 					<Items>
-						<Label id="username" text="Logged in as:" ></Label>
+						<Label id="username" text="Logged in as:"></Label>
 						<FlexSpace/>
 						
 						<Button id="logout" title="Log Out" style="Ti.UI.iPhone.SystemButtonStyle.DONE" onClick="logout"/>

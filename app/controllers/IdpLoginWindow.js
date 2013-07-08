@@ -43,6 +43,7 @@ $.IdpLoginWindow.addEventListener('close', function() {
 
 function hideWv(e) {
 	//alert("prima di load");
+	//$.activityIndicator.show();
 	$.wv.hide();
 }
 
@@ -51,6 +52,7 @@ function authenticate(e) {
 	//Ti.API.info("into load event");
 	//Ti.API.info("Call to authenticate function");
 	Ti.API.info("Loaded: " + e.url);
+
 	$.wv.show();
 	//Ti.API.info(JSON.stringify(wv.getCookiesForURL(e.url)));
 	//loadingInd.hide();
@@ -119,7 +121,7 @@ function authenticate(e) {
 						net.username = Ti.App.Properties.setString("username", currentUser);
 						//userInfoLabel.text = "Logged as: "  + response.cn;
 						//Ti.App.Properties.setString("username", currentUser);
-						Ti.App.fireEvent("loggedIn");
+						Ti.App.fireEvent("loggedIn", {username: currentUser});
 						//Ti.App.fireEvent("set:login", {
 						//	username : currentUser
 						//});

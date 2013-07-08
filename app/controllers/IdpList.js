@@ -3,6 +3,8 @@ $.idpsTableView.data = arguments[0].data;
 var navGroup = arguments[0].navGroup;
 $.IdpList.parentWin = arguments[0].parentWin;
 
+Ti.Platform.osname
+
 function openIdpLoginWindow(e) {
 	
 	var login_url = "https://gridp.garr.it/ds/WAYF?entityID="+ Alloy.Globals.gateway + "shibboleth&action=selection&origin=";
@@ -17,7 +19,7 @@ function openIdpLoginWindow(e) {
 		idpLoginWindow.open();
 	}
 	
-	idpLoginWindow.setTitle(e.rowData.title);
+	idpLoginWindow.setTitle(e.rowData.name);
 	idpLoginWindow.backButtonTitle = 'Back'
 	//loginWindow.leftNavButton = Titanium.UI.createButton({title:'Back'});
 	//Ti.API.info(e.rowData.origin);
