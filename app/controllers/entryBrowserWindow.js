@@ -7,68 +7,86 @@ var repoName = Alloy.Globals.repository;
 
 var totalRows;
 
-//$.activityIndicator.show();
-net.apiCall(Alloy.Globals.gateway + "/glibrary/glib" + path, function(response) {
-	//Ti.API.info(response);
-	var data = [];
-	totalRows = response.total;
-	//Ti.API.info(response.records);
-	for (var i = 0; i < response.records.length; i++) {
-		//Ti.API.info(response.records[i]);
-		var row = Ti.UI.createTableViewRow({
-			height : 100
-		});
-		//Ti.API.info(response.records[i]);
-		row.metadata = response.records[i];
-		/*var title = response.records[i].FileName;
-		row.add(Ti.UI.createLabel({
-			text : title,
-			top: 5,
-			left : 85,
-			font : {
-				fontSize : 16,
-				fontWeight : "bold"
-			}
-		})); */
-		for (var j = 0; j< visibleAttrs.length; j++ ) {
-			//Ti.API.info(visibleAttrs[j]);
-			row.add(Ti.UI.createLabel({
-				left: 85,
-				text: visibleAttrs[j] + ": " + response.records[i][visibleAttrs[j]],
-				top: 5 + j*16,
-				height: 16,
-				font: {
-					fontSize: "14dp",
-					fontWeight: (j == 0 ? "bold" : "regular")
-				},
-				width: 240
-			}));
-		}
-		row.hasChild = true;
-		row.add(Ti.UI.createImageView({
-			left : 10,
-			width : 60,
-			borderRadius: 5,
-			height: 80,
-			image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/Thumbs:Data"])
-		}));
-		row.id = response.records[i][path + ":FILE"];
-		//Ti.API.info(row.id);
-		data.push(row);
+var filter = {};
+var url = Alloy.Globals.gateway + "/glibrary/glib" + path;
+
+
+$.entryBrowserWindow.addEventListener('focus', function() {
+	Ti.API.info("entryBrowserWindow focus");
+	//$.activityIndicator.show();
+	Ti.API.info("filterQuery:" + filter.query);
+	if (filter.query) {
+		url = url + "/?" + filter.query;
 	}
-	$.activityIndicator.hide();
-	//Ti.API.info(data);
-	//$.browserWindow.title = e.row.children[0].text;
-	$.entryBrowserWindow.title = typeName;
-	$.itemBrowserTableView.setData(data);
-	$.itemBrowserTableView.show();
-}); 
+	net.apiCall(url, function(response) {
+		//Ti.API.info(response);
+		var data = [];
+		totalRows = response.total;
+		//Ti.API.info(response.records);
+		for (var i = 0; i < response.records.length; i++) {
+			//Ti.API.info(response.records[i]);
+			var row = Ti.UI.createTableViewRow({
+				height : 100
+			});
+			//Ti.API.info(response.records[i]);
+			row.metadata = response.records[i];
+			/*var title = response.records[i].FileName;
+			row.add(Ti.UI.createLabel({
+				text : title,
+				top: 5,
+				left : 85,
+				font : {
+					fontSize : 16,
+					fontWeight : "bold"
+				}
+			})); */
+			for (var j = 0; j< visibleAttrs.length; j++ ) {
+				//Ti.API.info(visibleAttrs[j]);
+				row.add(Ti.UI.createLabel({
+					left: 85,
+					text: visibleAttrs[j] + ": " + response.records[i][visibleAttrs[j]],
+					top: 5 + j*16,
+					height: 16,
+					font: {
+						fontSize: "14dp",
+						fontWeight: (j == 0 ? "bold" : "regular")
+					},
+					width: 240
+				}));
+			}
+			row.hasChild = true;
+			row.add(Ti.UI.createImageView({
+				left : 10,
+				width : 60,
+				borderRadius: 5,
+				height: 80,
+				image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/Thumbs:Data"])
+			}));
+			row.id = response.records[i][path + ":FILE"];
+			//Ti.API.info(row.id);
+			data.push(row);
+		}
+		$.activityIndicator.hide();
+		//Ti.API.info(data);
+		//$.browserWindow.title = e.row.children[0].text;
+		$.entryBrowserWindow.title = typeName;
+		$.itemBrowserTableView.setData(data);
+		$.itemBrowserTableView.show();
+	}); 
+
+});
+
 
 
 function loadMore(row) {
 	updating = true;
 	$.itemBrowserTableView.appendRow(Ti.UI.createTableViewRow({title:"Loading..."}));
-	net.apiCall(Alloy.Globals.gateway + "/glibrary/glib" + path + "?start=" + row, function(response) {
+	if (filter.query) {
+		url = url + "&start=" + row;
+	} else {
+		url = url + "?start=" + row;
+	}
+	net.apiCall(url, function(response) {
 		//Ti.API.info(response);
 		$.itemBrowserTableView.deleteRow(lastRow,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.NONE});
 		var data = [];
@@ -159,7 +177,12 @@ function loadOnScroll(e) {
 	
 }
 
-
+function applyFilters() {
+	//alert("ci siamo");
+	var filtersWindow = Alloy.createController("FiltersWindow", {path: path, query: filter}).getView();
+	$.entryBrowserWindow.navGroup.open(filtersWindow);
+	filtersWindow.navGroup = $.entryBrowserWindow.navGroup;
+}
 
 function showMetadata(e) {
 	var entryDetailWindow = Alloy.createController("entryDetailWindow", {id: e.rowData.id, metadata: e.rowData.metadata}).getView();

@@ -8,7 +8,7 @@
 
             <!-- The Items tag sets the Toolbar.items property. -->
             <Items>
-                <Button id="send" title="Apply Filters" style="Ti.UI.iPhone.SystemButtonStyle.DONE" />
+                <Button id="send" title="Apply Filters" style="Ti.UI.iPhone.SystemButtonStyle.DONE" onClick="applyFilters"/>
                 <FlexSpace/>
                
                 <Button id="cancel" systemButton="Ti.UI.iPhone.SystemButton.CANCEL" />
