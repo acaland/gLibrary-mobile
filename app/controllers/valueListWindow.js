@@ -6,7 +6,8 @@ var filtersTv = arguments[0].tv;
 var selectedRow = filtersTv.data[0].rows[rowIndex];
 var filterIndex = selectedRow.filterIndex;
 
-//$.valuesListWindow.title = filtersTv.data[0].rows[rowIndex].title;
+//Ti.API.info($.valueListWindow);
+$.valueListWindow.title = selectedRow.name;
 
 Ti.API.info(rowIndex);
 //Ti.API.info(filtersTv.data);
@@ -22,14 +23,17 @@ Ti.API.info(selectedRow.filterIndex);
 var filterData = [];
 
 for (var i=0; i < rowIndex; i++) {
-	var filter = {
-		field : filtersTv.data[0].rows[i].name,
-		data : {
-			type : 'list',
-			value : [filtersTv.data[0].rows[i].value]
-		}
-	};
-	filterData.push(filter);
+	if (filtersTv.data[0].rows[i].value) {
+		var filter = {
+			field : filtersTv.data[0].rows[i].name,
+			data : {
+				type : 'list',
+				value : [filtersTv.data[0].rows[i].value]
+			}
+		};
+		filterData.push(filter);
+	}
+	
 }
 
 Ti.API.info(JSON.stringify(filterData));

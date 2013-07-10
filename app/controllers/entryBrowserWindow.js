@@ -7,20 +7,33 @@ var repoName = Alloy.Globals.repository;
 
 var totalRows;
 
-var filter = {};
-var url = Alloy.Globals.gateway + "/glibrary/glib" + path;
+var filterQuery = "";
 
 
-$.entryBrowserWindow.addEventListener('focus', function() {
+
+
+$.entryBrowserWindow.addEventListener('open', function() {
+	loadMetadata();
+});
+
+function loadMetadata(query) {
 	Ti.API.info("entryBrowserWindow focus");
+	$.itemBrowserTableView.hide();
+	$.activityIndicator.show();
 	//$.activityIndicator.show();
-	Ti.API.info("filterQuery:" + filter.query);
-	if (filter.query) {
-		url = url + "/?" + filter.query;
+	Ti.API.info("query:" + query);
+	var url = Alloy.Globals.gateway + "/glibrary/glib" + path;
+	if (query) {
+		filterQuery = query;
+		url = url + "/?" + filterQuery;
+		var items = $.toolbar.items;
+		items.push(clearBtn);
+		$.toolbar.items = items;
 	}
 	net.apiCall(url, function(response) {
 		//Ti.API.info(response);
 		var data = [];
+		
 		totalRows = response.total;
 		//Ti.API.info(response.records);
 		for (var i = 0; i < response.records.length; i++) {
@@ -74,18 +87,21 @@ $.entryBrowserWindow.addEventListener('focus', function() {
 		$.itemBrowserTableView.show();
 	}); 
 
-});
+};
 
+exports.loadMetadata = loadMetadata;
 
 
 function loadMore(row) {
 	updating = true;
 	$.itemBrowserTableView.appendRow(Ti.UI.createTableViewRow({title:"Loading..."}));
-	if (filter.query) {
-		url = url + "&start=" + row;
+	var url = Alloy.Globals.gateway + "/glibrary/glib" + path;
+	if (filterQuery) {
+		url = url + "/?" + filterQuery + "&start=" + row;
 	} else {
 		url = url + "?start=" + row;
 	}
+	Ti.API.info("loadMore");
 	net.apiCall(url, function(response) {
 		//Ti.API.info(response);
 		$.itemBrowserTableView.deleteRow(lastRow,{animationStyle:Titanium.UI.iPhone.RowAnimationStyle.NONE});
@@ -177,12 +193,33 @@ function loadOnScroll(e) {
 	
 }
 
+var filtersWindow;
+
 function applyFilters() {
 	//alert("ci siamo");
-	var filtersWindow = Alloy.createController("FiltersWindow", {path: path, query: filter}).getView();
+	if (!filtersWindow) {
+		filtersWindow = Alloy.createController("FiltersWindow", {path: path, parent: $}).getView();
+	}
+	
 	$.entryBrowserWindow.navGroup.open(filtersWindow);
 	filtersWindow.navGroup = $.entryBrowserWindow.navGroup;
 }
+
+
+var clearBtn = Ti.UI.createButton({
+	title: "Clear Filters",
+	style: Ti.UI.iPhone.SystemButtonStyle.BAR
+});
+clearBtn.addEventListener('click', function()  {
+	filterQuery = "";
+	filtersWindow = null;
+	var items = $.toolbar.items;
+	items.pop();
+	$.toolbar.items = items;
+	//$.cancel.visible = false;
+	loadMetadata();
+
+});
 
 function showMetadata(e) {
 	var entryDetailWindow = Alloy.createController("entryDetailWindow", {id: e.rowData.id, metadata: e.rowData.metadata}).getView();

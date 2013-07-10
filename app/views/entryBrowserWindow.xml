@@ -4,14 +4,14 @@
 		<TableView id="itemBrowserTableView" visible="false" onClick="showMetadata" onScroll="loadOnScroll">		
 		</TableView>
 		<ActivityIndicator id="activityIndicator" message="Loading..." visible="true"/>
-		<Toolbar platform="ios" bottom="0" borderTop="true" borderBottom="false">
+		<Toolbar id="toolbar" platform="ios" bottom="0" borderTop="true" borderBottom="false">
 
             <!-- The Items tag sets the Toolbar.items property. -->
             <Items>
                 <Button id="send" title="Apply Filters" style="Ti.UI.iPhone.SystemButtonStyle.DONE" onClick="applyFilters"/>
                 <FlexSpace/>
                
-                <Button id="cancel" systemButton="Ti.UI.iPhone.SystemButton.CANCEL" />
+                <!--<Button id="cancel" visible="false" title="Clear Filters" onClick="clearFilters"/>-->
             </Items>
 
             <!-- Place additional views for the Toolbar here. -->

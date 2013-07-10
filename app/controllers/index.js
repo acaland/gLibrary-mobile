@@ -81,7 +81,9 @@ function loadTypeList() {
 						}
 					});
 				}
+				type.name = response[i].text;
 				type.path = response[i].path;
+				type.visibleAttrs = response[i].visibleAttrs;
 				type.hasChild = true;
 				//typesTableView.appendRow(type);
 				data.push(type);
@@ -96,6 +98,7 @@ function loadTypeList() {
 
 function loadEntries(e) {
 	Ti.API.info(e.rowData.path);
+	//alert("visibleAttrs: " + e.rowData.visibleAttrs);
 	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.name, visibleAttrs: e.rowData.visibleAttrs}).getView();
 	entryBrowser.navGroup = $.mainNavGroup;
 	$.mainNavGroup.open(entryBrowser);

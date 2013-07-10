@@ -3,7 +3,10 @@ var slide_in =  Titanium.UI.createAnimation({bottom:0});
 var slide_out =  Titanium.UI.createAnimation({bottom:-251});
 
 var path = arguments[0].path;
-var filter = arguments[0].query;
+//var filter = arguments[0].query;
+var entryBrowserController = arguments[0].parent;
+var filterQuery = entryBrowserController.filterQuery;
+
 
 var picker = Ti.UI.createPicker({top:43, selectionIndicator: true, type: Titanium.UI.PICKER_TYPE_PLAIN});
 
@@ -72,20 +75,20 @@ $.FiltersWindow.addEventListener('close', function() {
 	//var filter = [];
 	if ($.filters.data[0]) {
 		for (var i=0; i< $.filters.data[0].rowCount; i++) {
-			var f = "filter[" + i + "][field]=" + $.filters.data[0].rows[i].name +
+			if ($.filters.data[0].rows[i].value) {
+				var f = "filter[" + i + "][field]=" + $.filters.data[0].rows[i].name +
 					"&filter[" + i + "][data][type]=list" +
 					"&filter[" + i + "][data][value]=" + $.filters.data[0].rows[i].value;
-			//filter[i]['field'] = $.filters.data[0].row[i].name;
-			//filter[i]['data'] = [];
-			//filter[i]['data']['type'] = 'list';
-			//filter[i]['data']['value'] = $.filters.data[0].row[i].value;
-			if (i>0) {
-				filter.query = filter.query + "&" + f; 
-			} else {
-				filter.query = f;
+				if (i>0) {
+					filterQuery = filterQuery + "&" + f; 
+				} else {
+					filterQuery = f;
+				}
 			}
+			
 		}
-		Ti.API.info(filter.query);
+		Ti.API.info(filterQuery);
+		entryBrowserController.loadMetadata(filterQuery);
 	}
 	
 });
