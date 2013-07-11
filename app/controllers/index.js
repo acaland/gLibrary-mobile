@@ -4,7 +4,60 @@ Ti.API.info("lastLogin: " + net.lastLogin);
 Ti.API.info("shibCookie:" + net.shibCookie);
 Ti.API.info("username:" + net.username);
 
-$.index.open();
+var NappSlideMenu = require('dk.napp.slidemenu');
+
+var window = NappSlideMenu.createSlideMenuWindow({
+    centerWindow:$.mainNavGroup,
+    leftWindow:$.leftWindow,
+    //rightWindow:$.rightWindow,
+    leftLedge:100
+});
+
+
+$.leftTable.addEventListener("click", function(e){
+	window.toggleLeftView();
+	Alloy.Globals.repository = e.rowData.repo;
+	loadTypeList();
+	//alert("You clicked " + e.rowData.repo)
+	/* switch(e.index){
+		case 0:
+			window.toggleLeftView();
+			Alloy.Globals.repository = 'ESArep';
+			loadTypeList();
+			//alert("You clicked " + e.rowData.title)
+			break;
+		case 1:
+			window.toggleLeftView();
+			Alloy.Globals.repository = 'deroberto2';
+			loadTypeList();
+			//alert("You clicked " + e.rowData.title );
+			break;
+	} */
+});
+
+
+$.repo.addEventListener("focus", function() {
+	Ti.API.info("focused");
+	 window.setPanningMode("FullViewPanning");
+});
+
+function openLeft(){
+    window.toggleLeftView();
+   
+}
+function openRight(){
+    window.toggleRightView();
+}
+
+window.open(); //open the app
+window.setCenterhiddenInteractivity("TouchDisabledWithTapToClose");
+window.setParallaxAmount(0.4);
+window.bounceLeftView();
+
+
+
+
+//$.index.open();
 //$.downloadWin.getView().currentTab = $.index.activeTab;
 
 function loadLoginWindow() {
@@ -39,7 +92,7 @@ Ti.App.addEventListener('loggedIn', function(e) {
 });
 
 function loadTypeList() {
-	Ti.API.info("focused");
+	
 	if (net.loggedIn) {
 		var url = Alloy.Globals.gateway + 'glibrary/mountTree/' + Alloy.Globals.repository + "/?node=";
 		net.apiCall(url + "0" , function(response) {
@@ -101,6 +154,7 @@ function loadEntries(e) {
 	//alert("visibleAttrs: " + e.rowData.visibleAttrs);
 	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.name, visibleAttrs: e.rowData.visibleAttrs}).getView();
 	entryBrowser.navGroup = $.mainNavGroup;
+	window.setPanningMode("NavigationBarOrOpenCenterPanning");
 	$.mainNavGroup.open(entryBrowser);
 }
 

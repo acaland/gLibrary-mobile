@@ -1,7 +1,10 @@
 <Alloy>
-	<Window>
+	<Window> 
 		<NavigationGroup id="mainNavGroup" platform="ios">
 			<Window id="repo" onOpen="loadTypeList">
+				<LeftNavButton>
+                	<Button title="Repos" onClick="openLeft"></Button>
+            	</LeftNavButton>
 				
 				<TableView id="typesTableView" onClick="loadEntries"></TableView>
 				<Toolbar platform="ios" bottom="0" borderTop="true" borderBottom="false">
@@ -20,4 +23,16 @@
 			</Window>
 		</NavigationGroup>
 	</Window>
+	<Window id="leftWindow">
+        <TableView id="leftTable" rowHeight="80">
+            <TableViewRow leftImage="earthserver.jpg" title="EarthServer" repo="ESArep" />
+            <TableViewRow leftImage="deroberto.jpg" title="De Roberto" repo="deroberto2"/>
+            <TableViewRow leftImage="appicon.png" title="MEDrepo" repo="medrepo"/>
+            <TableViewRow leftImage="appicon.png" title="ICCU" repo="ICCU"/>
+            <TableViewRow leftImage="appicon.png" title="agINFRA" repo="aginfra"/>
+            <TableViewRow leftImage="appicon.png" title="ChinaRelics" repo="myTestRepo"/>
+            <TableViewRow leftImage="appicon.png" title="Demo Repo" repo="demo"/>
+            <TableViewRow leftImage="appicon.png" title="EELA" repo="EELA"/>
+        </TableView>
+    </Window>
 </Alloy>
