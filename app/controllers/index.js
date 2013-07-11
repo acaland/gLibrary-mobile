@@ -4,6 +4,8 @@ Ti.API.info("lastLogin: " + net.lastLogin);
 Ti.API.info("shibCookie:" + net.shibCookie);
 Ti.API.info("username:" + net.username);
 
+$.repo.title = Alloy.Globals.repository;
+
 var NappSlideMenu = require('dk.napp.slidemenu');
 
 var window = NappSlideMenu.createSlideMenuWindow({
@@ -17,6 +19,7 @@ var window = NappSlideMenu.createSlideMenuWindow({
 $.leftTable.addEventListener("click", function(e){
 	window.toggleLeftView();
 	Alloy.Globals.repository = e.rowData.repo;
+	$.repo.title = e.rowData.title;
 	loadTypeList();
 	//alert("You clicked " + e.rowData.repo)
 	/* switch(e.index){
@@ -38,7 +41,7 @@ $.leftTable.addEventListener("click", function(e){
 
 $.repo.addEventListener("focus", function() {
 	Ti.API.info("focused");
-	 window.setPanningMode("FullViewPanning");
+	window.setPanningMode("FullViewPanning");
 });
 
 function openLeft(){
@@ -148,7 +151,7 @@ function loadTypeList() {
 				data.push(type);
 			}
 			$.typesTableView.setData(data);
-			$.repo.title = Alloy.Globals.repository;
+			//$.repo.title = Alloy.Globals.repository;
 			//typesWindow.title = e.row.children[0].text;
 			//repoNav.open(typesWindow);
 		});

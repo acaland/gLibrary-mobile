@@ -12,7 +12,7 @@
 					<!-- The Items tag sets the Toolbar.items property. -->
 					<Items>
 						<FlexSpace/>
-						<Label id="usarnameLbl">Logged in as</Label>
+						<Label id="usarnameLbl">Logged as</Label>
 						<Label id="username" />
 						<FlexSpace/>
 						
@@ -26,7 +26,7 @@
 		</NavigationGroup>
 	</Window>
 	<Window id="leftWindow">
-        <TableView id="leftTable" rowHeight="80" >
+        <TableView id="leftTable" rowHeight="70" >
             <TableViewRow leftImage="earthserver.jpg" title="EarthServer" repo="ESArep" header="gLibrary repositories"/>
             <TableViewRow leftImage="deroberto.jpg" title="De Roberto" repo="deroberto2" />
             <TableViewRow leftImage="appicon.png" title="MEDrepo" repo="medrepo"/>
