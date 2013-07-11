@@ -77,7 +77,7 @@ if (net.shibCookie) {
 	} else {
 		net.loggedIn = true;
 		//Ti.App.fireEvent("set:login", {
-		$.username.text =  "Logged as: " + net.username;
+		$.username.text = net.username;
 		//});
 		Ti.API.info("già loggato ");
 	}
@@ -88,7 +88,7 @@ if (net.shibCookie) {
 Ti.App.addEventListener('loggedIn', function(e) {
 	
 	loadTypeList();
-	$.username.text = "Logged as: " + e.username;
+	$.username.text = e.username;
 });
 
 function loadTypeList() {

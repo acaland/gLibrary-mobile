@@ -1,0 +1,13 @@
+"#usarnameLbl": {
+	color: "white",
+	font: {
+		fontSize: "12dp"
+	}
+},
+"#username": {
+	color: "white",
+	font: {
+		fontWeight: "bold",
+		fontSize: "12dp"
+	}
+}

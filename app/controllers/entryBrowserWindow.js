@@ -1,6 +1,11 @@
 var path = arguments[0].path;
 var typeName = arguments[0].name;
+
 var visibleAttrs = arguments[0].visibleAttrs.split(" ");
+
+if (!visibleAttrs[0]) {
+	visibleAttrs = ["FileName", "Size", "FileType", "Keywords", "LastModificationDate"];
+}
 
 var net = require('net');
 var repoName = Alloy.Globals.repository;
