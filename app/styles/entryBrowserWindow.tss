@@ -6,4 +6,7 @@
 	//borderWidth: 1,
 	height: Ti.UI.SIZE,
 	width: Ti.UI.SIZE
+},
+"#itemBrowserTableView": {
+	bottom: "44dp"
 }

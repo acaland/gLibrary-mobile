@@ -122,19 +122,25 @@ function loadTypeList() {
 								image : "folder.png",
 								width : 50,
 								left : 50
-							}));
+							})); 
+							//row.leftImage = "Folder-Add.png";
 							row.id = "" + response[j].id;
-							row.name = response[j].text;
+							row.typename = response[j].text;
 							row.path = response[j].path;
 							row.visibleAttrs = response[j].visibleAttrs;
 							row.hasChild = true;
 							row.height = 60;
-							var previousRow = $.typesTableView.getIndexByName(type.name);
+							//row.indentionLevel = 1;
+							//row.title = row.typename;
+							var parentID = response[j].parentID;
+							//Ti.API.info(type.name);
+							var previousRow = $.typesTableView.getIndexByName(parentID);
+							//Ti.API.info(previousRow);
 							$.typesTableView.insertRowAfter(previousRow, row);
 						}
 					});
 				}
-				type.name = response[i].text;
+				type.typename = response[i].text;
 				type.path = response[i].path;
 				type.visibleAttrs = response[i].visibleAttrs;
 				type.hasChild = true;
@@ -152,7 +158,7 @@ function loadTypeList() {
 function loadEntries(e) {
 	Ti.API.info(e.rowData.path);
 	//alert("visibleAttrs: " + e.rowData.visibleAttrs);
-	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.name, visibleAttrs: e.rowData.visibleAttrs}).getView();
+	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.typename, visibleAttrs: e.rowData.visibleAttrs}).getView();
 	entryBrowser.navGroup = $.mainNavGroup;
 	window.setPanningMode("NavigationBarOrOpenCenterPanning");
 	$.mainNavGroup.open(entryBrowser);

@@ -10,4 +10,7 @@
 		fontWeight: "bold",
 		fontSize: "12dp"
 	}
+},
+"#typesTableView": {
+	bottom: "44dp"
 }
