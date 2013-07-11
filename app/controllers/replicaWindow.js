@@ -1,5 +1,12 @@
 var replicas = arguments[0];
 
+$.mapview.setRegion({
+	latitude: replicas[0].lat,
+	longitude: replicas[0].lng,
+	latitudeDelta: 12,
+	longitudeDelta: 12
+});
+
 for (var i = 0; i < replicas.length; i++) {
 	var ann = Titanium.Map.createAnnotation({
 		latitude : replicas[i].lat,
@@ -33,6 +40,9 @@ function downloadReplica(e) {
 		Ti.API.info("Splitted URL:" + url);
 		var fileType = url.substring(url.length - 3);
 		var webView = Alloy.createController("WebViewer", {url:url}).getView();
+		webView.backButtonTitle = "Replicas";
+		webView.title = url.split("/")[url.split("/").length-1];
+		webView.orientationModes = [Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT];
 		$.replicaWindow.navGroup.open(webView);
 	}
 }

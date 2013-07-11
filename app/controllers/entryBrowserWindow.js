@@ -72,7 +72,7 @@ function loadMetadata(query) {
 				left : 10,
 				width : 60,
 				borderRadius: 5,
-				height: 80,
+				//height: 80,
 				image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/Thumbs:Data"])
 			}));
 			row.id = response.records[i][path + ":FILE"];
@@ -142,7 +142,7 @@ function loadMore(row) {
 				left : 10,
 				width : 60,
 				borderRadius: 5,
-				height: 80,
+				//height: 80,
 				image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/Thumbs:Data"])
 			}));
 			row.id = response.records[i][path + ":FILE"];

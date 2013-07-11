@@ -32,7 +32,7 @@ for (var i in metadata) {
 
 		$.details.appendRow(row);
 	}
-
+	//Ti.API.info(metadata.FileName)
 	//Ti.API.info(i);
 }
 
@@ -41,6 +41,7 @@ function downloadEntry() {
 	net.apiCall(Alloy.Globals.gateway + "glibrary/links2/" + Alloy.Globals.repository + "/" + id + "/", function(response) {
 		var replicaWindow = Alloy.createController("replicaWindow", response).getView();
 		$.entryDetailWindow.navGroup.open(replicaWindow);
+		replicaWindow.title = metadata.FileName;
 		replicaWindow.navGroup = $.entryDetailWindow.navGroup;
 	});
 }

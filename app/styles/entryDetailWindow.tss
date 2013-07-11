@@ -6,6 +6,6 @@
 	height: 120
 },
 "#details": {
-	top: 130,
+	//top: 130,
 	style: Titanium.UI.iPhone.TableViewStyle.GROUPED
 }
