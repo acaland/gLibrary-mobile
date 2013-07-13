@@ -99,9 +99,8 @@ function openIdpList(e) {
 	//Ti.API.info("navGroup: " + JSON.stringify($.federationList.navGroup));
 	var idpsData = [];
 	//detailNav.open(idpsListWindow);
-
-	//alert(JSON.stringify(e.row.name));
-	
+	//Ti.API.info(JSON.stringify(e.row));
+	//alert(JSON.stringify(e.row));
 	if (e.row.name == "GrIDP") {
 		
 		for (var i=0; i < e.row.idps.length; i++) {
@@ -147,13 +146,15 @@ function openIdpList(e) {
 			}));
 			row.name = e.row.idps[i].displayName;
 			row.origin = e.row.idps[i].origin;
-			row.class = "IdpList";
+			row.className = "IdpList";
+
+			//Ti.API.info(JSON.stringify(row));
 
 			if (row.name == "IDPOPEN GARR") {
 				idpsData.unshift(row);
 			} else {
 				idpsData.push(row);
-			}
+			} 
 			
 		}
 	} else {

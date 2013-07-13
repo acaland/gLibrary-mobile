@@ -1,6 +1,5 @@
 var url = arguments[0].url;
 
-
 var net = require('net');
 
 
@@ -41,7 +40,7 @@ xhr.onerror = function(e) {
 }
 
 xhr.open('GET', url);
-//Ti.API.info("URL : " + url);
+Ti.API.info("URL : " + url);
 //Ti.API.info("cookie : " + net.shibCookie);
 xhr.setRequestHeader("Cookie", net.shibCookie);
 xhr.send();

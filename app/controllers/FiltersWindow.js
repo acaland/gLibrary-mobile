@@ -12,7 +12,7 @@ var picker = Ti.UI.createPicker({top:43, selectionIndicator: true, type: Titaniu
 
 var net = require('net');
 
-net.apiCall(Alloy.Globals.gateway + "/glibrary/metadata" + path, function(response) {
+net.apiCall(Alloy.Globals.gateway + "glibrary/metadata" + path, function(response) {
 	//Ti.API.info(response.filters);
 
 	var rows = [];

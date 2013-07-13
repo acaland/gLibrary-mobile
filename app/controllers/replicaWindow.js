@@ -34,8 +34,10 @@ function downloadReplica(e) {
 	if (e.clicksource == 'rightButton') {
 		Ti.API.info("Annotation.link:" + e.annotation.link);
 		var url = e.annotation.link.split('=')[1].slice(0, -7);
-		if (url.indexOf("/glibrary") == 0) {
+		Ti.API.info("url:" + url );
+		if (url.indexOf("glibrary") == 1) {
 			url = Alloy.Globals.gateway + url;
+			//alert(url);
 		}
 		Ti.API.info("Splitted URL:" + url);
 		var fileType = url.substring(url.length - 3);

@@ -2,7 +2,7 @@ var metadata = arguments[0].metadata;
 var id = arguments[0].id;
 
 
-$.thumb.image = Ti.Utils.base64decode(metadata["/" + Alloy.Globals.repository + "/Thumbs:Data"]);
+$.thumb.image = Ti.Utils.base64decode(metadata["/" + Alloy.Globals.repository + "/" + "Thumbs:Data"]);
 
 for (var i in metadata) {
 	if (i.indexOf("/") != 0) {

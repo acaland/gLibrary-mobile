@@ -105,7 +105,7 @@ Ti.App.addEventListener('loggedIn', function(e) {
 function loadTypeList() {
 
 	if (net.loggedIn) {
-		var url = Alloy.Globals.gateway + 'glibrary/mountTree/' + Alloy.Globals.repository + "/?node=";
+		var url = Alloy.Globals.gateway + 'glibrary/mountTree/' + Alloy.Globals.repository + "/" + "?node=";
 		net.apiCall(url + "0", function(response) {
 			//Ti.API.info(response);
 			//alert(response);
@@ -115,7 +115,7 @@ function loadTypeList() {
 				type.title = response[i].text;
 				type.isLeaf = response[i].leaf;
 				type.name = String(response[i].id);
-				type.leftImage = "Folder-Add.png";
+				type.leftImage = "/Folder-Add.png";
 				type.height = 60;
 				if (!type.isLeaf) {
 					net.apiCall(url + response[i].id, function(response) {
@@ -130,11 +130,11 @@ function loadTypeList() {
 								}
 							}));
 							row.add(Ti.UI.createImageView({
-								image : "folder.png",
+								image : "/folder.png",
 								width : 50,
 								left : 50
 							}));
-							//row.leftImage = "Folder-Add.png";
+							//row.leftImage = "/Folder-Add.png";
 							row.id = "" + response[j].id;
 							row.typename = response[j].text;
 							row.path = response[j].path;

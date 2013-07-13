@@ -27,10 +27,10 @@ function loadMetadata(query) {
 	$.activityIndicator.show();
 	//$.activityIndicator.show();
 	Ti.API.info("query:" + query);
-	var url = Alloy.Globals.gateway + "/glibrary/glib" + path;
+	var url = Alloy.Globals.gateway + "glibrary/glib" + path + "/";
 	if (query) {
 		filterQuery = query;
-		url = url + "/?" + filterQuery;
+		url = url + "/" + "?" + filterQuery;
 		var items = $.toolbar.items;
 		items.push(clearBtn);
 		$.toolbar.items = items;
@@ -71,19 +71,21 @@ function loadMetadata(query) {
 					},
 					width: 240
 				}));
-			}
+			} 
 			row.hasChild = true;
+			//Ti.API.info("/" + repoName + "/Thumbs:Data");
+			//Ti.API.info(response.records[i]);
 			row.add(Ti.UI.createImageView({
 				left : 10,
 				width : 60,
 				borderRadius: 5,
 				//height: 80,
-				image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/Thumbs:Data"])
-			}));
+				image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/" + "Thumbs:Data"])
+			})); 
 			row.id = response.records[i][path + ":FILE"];
 			//Ti.API.info(row.id);
-			data.push(row);
-		}
+			data.push(row); 
+		} 
 		$.activityIndicator.hide();
 		//Ti.API.info(data);
 		//$.browserWindow.title = e.row.children[0].text;
@@ -100,9 +102,9 @@ exports.loadMetadata = loadMetadata;
 function loadMore(row) {
 	updating = true;
 	$.itemBrowserTableView.appendRow(Ti.UI.createTableViewRow({title:"Loading..."}));
-	var url = Alloy.Globals.gateway + "/glibrary/glib" + path;
+	var url = Alloy.Globals.gateway + "glibrary/glib" + path;
 	if (filterQuery) {
-		url = url + "/?" + filterQuery + "&start=" + row;
+		url = url + "/" + "?" + filterQuery + "&start=" + row;
 	} else {
 		url = url + "?start=" + row;
 	}
@@ -148,7 +150,7 @@ function loadMore(row) {
 				width : 60,
 				borderRadius: 5,
 				//height: 80,
-				image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/Thumbs:Data"])
+				image : Ti.Utils.base64decode(response.records[i]["/" + repoName + "/" + "Thumbs:Data"])
 			}));
 			row.id = response.records[i][path + ":FILE"];
 			//Ti.API.info(row.id);

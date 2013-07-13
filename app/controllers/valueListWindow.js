@@ -41,7 +41,7 @@ Ti.API.info(JSON.stringify(filterData));
 
 var net = require('net');
 
-var url = Alloy.Globals.gateway + "/glibrary/test" + path + "/?filterData=" 
+var url = Alloy.Globals.gateway + "glibrary/test" + path + "/" +"?filterData=" 
 	+ JSON.stringify(filterData);
 Ti.API.info(url);
 
