@@ -41,7 +41,8 @@ net.retrieveIdpList(entityId, function(federations) {
 			width: "80dp",
 			font: {
 				fontSize: "14dp"
-			}
+			},
+			color: "black"
 			//borderWidth: 1
 		}));
 
@@ -52,7 +53,8 @@ net.retrieveIdpList(entityId, function(federations) {
 			font: {
 				fontSize: "20dp",
 				fontWeight: "bold"
-			}
+			},
+			color: "black"
 		}));
 		
 		row.add(Ti.UI.createImageView({
@@ -98,51 +100,53 @@ function openIdpList(e) {
 	var idpsData = [];
 	//detailNav.open(idpsListWindow);
 
-	//alert(e.rowData.name);
+	//alert(JSON.stringify(e.row.name));
 	
-	if (e.rowData.name == "GrIDP") {
+	if (e.row.name == "GrIDP") {
 		
-		for (var i=0; i < e.rowData.idps.length; i++) {
+		for (var i=0; i < e.row.idps.length; i++) {
 
 			var row = Ti.UI.createTableViewRow({height: 70});
 
 			row.add(Ti.UI.createImageView({
-				image: e.rowData.idps[i].flag,
+				image: e.row.idps[i].flag,
 				left: "25dp",
 				top: "5dp",
 				width: "40dp",
 				//borderWidth: 1
 			}));
 			row.add(Ti.UI.createLabel({
-				text: e.rowData.idps[i].country,
+				text: e.row.idps[i].country,
 				textAlign: "center",
 				bottom: 5,
 				left: 0,
 				width: "90dp",
 				font: {
 					fontSize: "12dp"
-				}
+				},
+				color: "black"
 				//borderWidth: 1
 			}));
 
 			row.add(Ti.UI.createLabel({
-				text: e.rowData.idps[i].displayName,
+				text: e.row.idps[i].displayName,
 				left: "90dp",
 				right: "70dp",
 				//borderWidth: 1,
 				font: {
 					fontSize: "18dp",
 					fontWeight: "bold"
-				}
+				}, 
+				color: "black"
 			}));
 			
 			row.add(Ti.UI.createImageView({
-					image: e.rowData.idps[i].logo,
+					image: e.row.idps[i].logo,
 				right: 5,
 				width: "60dp"
 			}));
-			row.name = e.rowData.idps[i].displayName;
-			row.origin = e.rowData.idps[i].origin;
+			row.name = e.row.idps[i].displayName;
+			row.origin = e.row.idps[i].origin;
 			row.class = "IdpList";
 
 			if (row.name == "IDPOPEN GARR") {
@@ -154,11 +158,11 @@ function openIdpList(e) {
 		}
 	} else {
 		
-		for (var i=0; i < e.rowData.idps.length; i++) {
+		for (var i=0; i < e.row.idps.length; i++) {
 			idpsData[i] = {
-				title: e.rowData.idps[i].displayName, 
-				name: e.rowData.idps[i].displayName,
-				origin: e.rowData.idps[i].origin, 
+				title: e.row.idps[i].displayName, 
+				name: e.row.idps[i].displayName,
+				origin: e.row.idps[i].origin, 
 				color: "black", 
 				hasChild: true}
 		}

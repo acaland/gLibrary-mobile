@@ -4,63 +4,69 @@ Ti.API.info("lastLogin: " + net.lastLogin);
 Ti.API.info("shibCookie:" + net.shibCookie);
 Ti.API.info("username:" + net.username);
 
-$.repo.title = Alloy.Globals.repository;
+if (OS_IOS) {
+	$.repo.title = Alloy.Globals.repository;
 
-var NappSlideMenu = require('dk.napp.slidemenu');
+	var NappSlideMenu = require('dk.napp.slidemenu');
 
-var window = NappSlideMenu.createSlideMenuWindow({
-    centerWindow:$.mainNavGroup,
-    leftWindow:$.leftWindow,
-    //rightWindow:$.rightWindow,
-    leftLedge:100
-});
+	var window = NappSlideMenu.createSlideMenuWindow({
+		centerWindow : $.mainNavGroup,
+		leftWindow : $.leftWindow,
+		//rightWindow:$.rightWindow,
+		leftLedge : 100
+	});
+
+	$.leftTable.addEventListener("click", function(e) {
+		window.toggleLeftView();
+		Alloy.Globals.repository = e.rowData.repo;
+		$.repo.title = e.rowData.title;
+		loadTypeList();
+		//alert("You clicked " + e.rowData.repo)
+		/* switch(e.index){
+		 case 0:
+		 window.toggleLeftView();
+		 Alloy.Globals.repository = 'ESArep';
+		 loadTypeList();
+		 //alert("You clicked " + e.rowData.title)
+		 break;
+		 case 1:
+		 window.toggleLeftView();
+		 Alloy.Globals.repository = 'deroberto2';
+		 loadTypeList();
+		 //alert("You clicked " + e.rowData.title );
+		 break;
+		 } */
+	});
+
+	$.repo.addEventListener("focus", function() {
+		Ti.API.info("focused");
+		window.setPanningMode("FullViewPanning");
+	});
+
+	function openLeft() {
+		window.toggleLeftView();
+
+	}
+
+	function openRight() {
+		window.toggleRightView();
+	}
 
 
-$.leftTable.addEventListener("click", function(e){
-	window.toggleLeftView();
-	Alloy.Globals.repository = e.rowData.repo;
-	$.repo.title = e.rowData.title;
-	loadTypeList();
-	//alert("You clicked " + e.rowData.repo)
-	/* switch(e.index){
-		case 0:
-			window.toggleLeftView();
-			Alloy.Globals.repository = 'ESArep';
-			loadTypeList();
-			//alert("You clicked " + e.rowData.title)
-			break;
-		case 1:
-			window.toggleLeftView();
-			Alloy.Globals.repository = 'deroberto2';
-			loadTypeList();
-			//alert("You clicked " + e.rowData.title );
-			break;
-	} */
-});
+	window.open();
+	//open the app
+	window.setCenterhiddenInteractivity("TouchDisabledWithTapToClose");
+	window.setParallaxAmount(0.4);
+	window.bounceLeftView();
 
-
-$.repo.addEventListener("focus", function() {
-	Ti.API.info("focused");
-	window.setPanningMode("FullViewPanning");
-});
-
-function openLeft(){
-    window.toggleLeftView();
-   
+} else {
+	$.repo.open();
+	//var actionBar = $.repo.activity.onCreateOptionsMenu = function(e) {
+		
+	
 }
-function openRight(){
-    window.toggleRightView();
-}
 
-window.open(); //open the app
-window.setCenterhiddenInteractivity("TouchDisabledWithTapToClose");
-window.setParallaxAmount(0.4);
-window.bounceLeftView();
-
-
-
-
-//$.index.open();
+//
 //$.downloadWin.getView().currentTab = $.index.activeTab;
 
 function loadLoginWindow() {
@@ -80,7 +86,9 @@ if (net.shibCookie) {
 	} else {
 		net.loggedIn = true;
 		//Ti.App.fireEvent("set:login", {
-		$.username.text = net.username;
+		if (OS_IOS) {
+			$.username.text = net.username;
+		}
 		//});
 		Ti.API.info("già loggato ");
 	}
@@ -89,16 +97,16 @@ if (net.shibCookie) {
 }
 
 Ti.App.addEventListener('loggedIn', function(e) {
-	
+
 	loadTypeList();
 	$.username.text = e.username;
 });
 
 function loadTypeList() {
-	
+
 	if (net.loggedIn) {
 		var url = Alloy.Globals.gateway + 'glibrary/mountTree/' + Alloy.Globals.repository + "/?node=";
-		net.apiCall(url + "0" , function(response) {
+		net.apiCall(url + "0", function(response) {
 			//Ti.API.info(response);
 			//alert(response);
 			var data = [];
@@ -125,7 +133,7 @@ function loadTypeList() {
 								image : "folder.png",
 								width : 50,
 								left : 50
-							})); 
+							}));
 							//row.leftImage = "Folder-Add.png";
 							row.id = "" + response[j].id;
 							row.typename = response[j].text;
@@ -161,17 +169,21 @@ function loadTypeList() {
 function loadEntries(e) {
 	Ti.API.info(e.rowData.path);
 	//alert("visibleAttrs: " + e.rowData.visibleAttrs);
-	var entryBrowser = Alloy.createController("entryBrowserWindow", {path: e.rowData.path, name: e.rowData.typename, visibleAttrs: e.rowData.visibleAttrs}).getView();
+	var entryBrowser = Alloy.createController("entryBrowserWindow", {
+		path : e.rowData.path,
+		name : e.rowData.typename,
+		visibleAttrs : e.rowData.visibleAttrs
+	}).getView();
 	entryBrowser.navGroup = $.mainNavGroup;
 	window.setPanningMode("NavigationBarOrOpenCenterPanning");
 	$.mainNavGroup.open(entryBrowser);
 }
 
 function logout() {
-	
+
 	//net.loggedIn = false;
 	net.lastLogin = Ti.App.Properties.setDouble("lastLogin", 0);
-	net.username = Ti.App.Properties.setString("username", "none");    
+	net.username = Ti.App.Properties.setString("username", "none");
 	var path = Titanium.Filesystem.applicationDataDirectory;
 	var searchKey = path.search('Documents');
 	path = path.substring(0, searchKey);
